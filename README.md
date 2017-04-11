@@ -1,2 +1,3 @@
-# pink-pigeon
-Password generator written in Rust
+# Pink Pigeon Password Generator
+
+Password generator written in Rust.
