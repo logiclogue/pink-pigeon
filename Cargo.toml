@@ -1,0 +1,6 @@
+[package]
+name = "pink-pigeon-password"
+version = "0.1.0"
+authors = ["logiclogue <jordanpaullord@hotmail.co.uk>"]
+
+[dependencies]
