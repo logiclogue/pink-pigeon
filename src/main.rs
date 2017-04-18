@@ -11,7 +11,6 @@ fn main() {
     let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let index = get_random_number(&digest) % 36;
 
-
     println!("{} {} {}", letters, index, get_char_from_index(&letters, index));
 }
 
