@@ -1,8 +1,12 @@
+mod random;
+
 extern crate crypto;
 
 use std::env;
 use crypto::digest::Digest;
 use crypto::md5::Md5;
+use random::RandomNumberGenerator;
+use random::random_number_generator;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
@@ -26,17 +30,14 @@ fn get_char_from_index(letters: &str, index: i32) -> char {
 
 fn get_hash(input: &str) -> String {
     let mut hash = Md5::new();
-    let digest;
 
     hash.input_str(&input);
 
-    digest = hash.result_str();
-
-    digest
+    hash.result_str()
 }
 
 fn get_random_number(input: &str) -> i32 {
-    let s: String = input
+    let s = input
         .chars()
         .take(4)
         .collect();
