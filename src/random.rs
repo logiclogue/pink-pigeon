@@ -1,28 +1,30 @@
 use crypto::md5::Md5;
 use crypto::digest::Digest;
 
-pub trait RandomNumberGenerator {
+pub trait Generator {
     fn get_in_range(&self, min: i32, max: i32) -> i32;
 }
 
-pub struct SeededRandomNumberGenerator {
+pub struct SeededGenerator {
     seed: String
 }
 
-impl SeededRandomNumberGenerator {
-    fn new(seed: String) -> SeededRandomNumberGenerator {
-        SeededRandomNumberGenerator {
-            seed: seed
+impl SeededGenerator {
+    pub fn new(seed: &str) -> SeededGenerator {
+        SeededGenerator {
+            seed: seed.to_string()
         }
     }
 }
 
-impl RandomNumberGenerator for SeededRandomNumberGenerator {
+impl Generator for SeededGenerator {
     fn get_in_range(&self, min: i32, max: i32) -> i32 {
         let digest;
-        let s;
+        let s: String;
         let num;
         let mut hash = Md5::new();
+        let diff = max - min;
+        let result;
 
         hash.input_str(&self.seed);
 
@@ -35,9 +37,11 @@ impl RandomNumberGenerator for SeededRandomNumberGenerator {
 
         num = i32::from_str_radix(&s, 16);
 
-        match num {
-            Ok(num) => num % max,
+        result = match num {
+            Ok(input_int) => input_int,
             Err(_) => 0
-        }
+        };
+
+        (result % diff) + min
     }
 }
