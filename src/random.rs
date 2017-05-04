@@ -1,3 +1,6 @@
+use crypto::md5::Md5;
+use crypto::digest::Digest;
+
 pub trait RandomNumberGenerator {
     fn get_in_range(&self, min: i32, max: i32) -> i32;
 }
@@ -16,22 +19,24 @@ impl SeededRandomNumberGenerator {
 
 impl RandomNumberGenerator for SeededRandomNumberGenerator {
     fn get_in_range(&self, min: i32, max: i32) -> i32 {
-        let s = self.seed
-            .chars()
-            .take(4)
-            .collect();
-        let random_hash;
-
+        let digest;
+        let s;
+        let num;
         let mut hash = Md5::new();
 
         hash.input_str(&self.seed);
 
-        random_hash = hash.result_str();
+        digest = hash.result_str();
 
-        let num = i32::from_str_radix(&s, 16);
+        s = digest
+            .chars()
+            .take(4)
+            .collect();
+
+        num = i32::from_str_radix(&s, 16);
 
         match num {
-            Ok(min) => num % max,
+            Ok(num) => num % max,
             Err(_) => 0
         }
     }

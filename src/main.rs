@@ -5,8 +5,6 @@ extern crate crypto;
 use std::env;
 use crypto::digest::Digest;
 use crypto::md5::Md5;
-use random::RandomNumberGenerator;
-use random::random_number_generator;
 
 fn main() {
     let args: Vec<_> = env::args().collect();
