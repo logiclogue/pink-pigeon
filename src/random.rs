@@ -2,6 +2,7 @@ use crypto::md5::Md5;
 use crypto::digest::Digest;
 
 pub trait Generator {
+    fn get(&mut self) -> i32;
     fn get_in_range(&mut self, min: i32, max: i32) -> i32;
 }
 
@@ -20,12 +21,10 @@ impl SeededGenerator {
 }
 
 impl Generator for SeededGenerator {
-    fn get_in_range(&mut self, min: i32, max: i32) -> i32 {
+    fn get(&mut self) -> i32 {
         let digest;
         let s: String;
         let num;
-        let diff = max - min;
-        let result;
 
         self.hash.input_str(&self.seed);
 
@@ -38,11 +37,15 @@ impl Generator for SeededGenerator {
 
         num = i32::from_str_radix(&s, 16);
 
-        result = match num {
+        match num {
             Ok(input_int) => input_int,
             Err(_) => 0
-        };
+        }
+    }
 
-        (result % diff) + min
+    fn get_in_range(&mut self, min: i32, max: i32) -> i32 {
+        let diff = max - min;
+
+        (self.get() % diff) + min
     }
 }
