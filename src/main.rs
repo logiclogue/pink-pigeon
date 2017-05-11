@@ -14,7 +14,7 @@ fn main() {
     let digest = get_hash(input);
     let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let mut generator = SeededGenerator::new(&digest);
-    let index = generator.get_in_range(0, 36);
+    let index = generator.get_in_range(0, 35);
 
     println!("{} {} {}", letters, index, get_char_from_index(&letters, index));
 }
