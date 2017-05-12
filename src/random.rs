@@ -4,6 +4,7 @@ use crypto::digest::Digest;
 pub trait Generator {
     fn get(&mut self) -> i32;
     fn get_in_range(&mut self, min: i32, max: i32) -> i32;
+    fn get_character(&mut self, letters: String) -> char;
 }
 
 pub struct SeededGenerator {
@@ -48,4 +49,18 @@ impl Generator for SeededGenerator {
 
         (self.get() % diff) + min
     }
+
+    fn get_character(&mut self, letters: &str) -> char {
+        let max = letters.length;
+    }
+}
+
+fn get_char_from_index(letters: &str, index: i32) -> char {
+    for (i, value) in letters.chars().enumerate() {
+        if i == index as usize {
+            return value;
+        }
+    }
+
+    ' '
 }
