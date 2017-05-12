@@ -18,21 +18,3 @@ fn main() {
 
     println!("{} {} {}", letters, index, get_char_from_index(&letters, index));
 }
-
-fn get_char_from_index(letters: &str, index: i32) -> char {
-    for (i, value) in letters.chars().enumerate() {
-        if i == index as usize {
-            return value;
-        }
-    }
-
-    ' '
-}
-
-fn get_hash(input: &str) -> String {
-    let mut hash = Md5::new();
-
-    hash.input_str(&input);
-
-    hash.result_str()
-}
