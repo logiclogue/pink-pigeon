@@ -11,10 +11,6 @@ use random::SeededGenerator;
 fn main() {
     let args: Vec<_> = env::args().collect();
     let input = &args[1];
-    let digest = get_hash(input);
-    let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let mut generator = SeededGenerator::new(&digest);
+    let mut generator = SeededGenerator::new(input);
     let index = generator.get_in_range(0, 35);
-
-    println!("{} {} {}", letters, index, get_char_from_index(&letters, index));
 }
