@@ -1,5 +1,6 @@
 use crypto::md5::Md5;
 use crypto::digest::Digest;
+use std::convert;
 
 pub trait Generator {
     fn get(&mut self) -> i32;
@@ -51,7 +52,7 @@ impl Generator for SeededGenerator {
     }
 
     fn get_character(&mut self, letters: &str) -> char {
-        let max = letters.len() - 1;
+        let max = letters.len() as i32 - 1;
         let index = self.get_in_range(0, max);
         let character = get_char_from_index(letters, index);
 

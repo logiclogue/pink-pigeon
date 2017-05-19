@@ -3,8 +3,6 @@ mod random;
 extern crate crypto;
 
 use std::env;
-use crypto::digest::Digest;
-use crypto::md5::Md5;
 use random::Generator;
 use random::SeededGenerator;
 
