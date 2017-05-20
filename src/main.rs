@@ -11,4 +11,6 @@ fn main() {
     let input = &args[1];
     let mut generator = SeededGenerator::new(input);
     let index = generator.get_in_range(0, 35);
+
+    println!("{0}", index);
 }

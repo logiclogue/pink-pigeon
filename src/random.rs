@@ -1,6 +1,5 @@
 use crypto::md5::Md5;
 use crypto::digest::Digest;
-use std::convert;
 
 pub trait Generator {
     fn get(&mut self) -> i32;
