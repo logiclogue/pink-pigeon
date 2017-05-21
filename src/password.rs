@@ -4,18 +4,15 @@ pub trait Generator {
 
 pub struct StandardGenerator {
     generator: random::Generator,
-    seed: &str,
     characters: &str
 };
 
 impl StandardGenerator {
     pub fn new(
         generator: random::Generator,
-        seed: &str,
         characters: &str) -> StandardGenerator {
         StandardGenerator {
             generator: generator,
-            seed: seed,
             characters: characters
         }
     }

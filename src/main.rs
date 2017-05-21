@@ -1,4 +1,5 @@
 mod random;
+mod tests;
 
 extern crate crypto;
 
