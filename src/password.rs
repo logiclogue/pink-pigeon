@@ -1,30 +1,27 @@
+use random;
+
 pub trait Generator {
-    fn get_password(&self, length: i32, characters: &str) -> String;
+    fn get_password(&mut self, length: i32, characters: &str) -> String;
 }
 
 pub struct StandardGenerator {
-    generator: random::Generator,
-    characters: &str
-};
+    generator: &'static mut random::Generator
+}
 
 impl StandardGenerator {
-    pub fn new(
-        generator: random::Generator,
-        characters: &str) -> StandardGenerator {
+    pub fn new(generator: &'static mut random::Generator) -> StandardGenerator {
         StandardGenerator {
-            generator: generator,
-            characters: characters
+            generator: generator
         }
     }
 }
 
 impl Generator for StandardGenerator {
-    fn get_password(&mut self, length: i32) -> String {
-        let mut password;
+    fn get_password(&mut self, length: i32, characters: &str) -> String {
+        let mut password = String::new();
 
         for index in 0..length {
-            let character = self.generator.get_char_from_index(
-                self.characters, index);
+            let character = self.generator.get_character(characters);
 
             password.push(character);
         }
