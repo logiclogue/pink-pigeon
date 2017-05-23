@@ -9,6 +9,6 @@ mod standard_generator_tests {
         let mut random_generator = random::SeededGenerator::new("test");
         let character = random_generator.get_character("ABC");
 
-        assert_eq!('A', character);
+        assert_eq!('B', character);
     }
 }
