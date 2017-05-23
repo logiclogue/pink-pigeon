@@ -1,14 +1,13 @@
 #[cfg(test)]
 mod standard_generator_tests {
     use random;
-    use random::Generator;
-    use password;
+    use random::Generator as RandomGenerator;
+    use password::StandardGenerator;
+    use password::Generator;
 
     #[test]
-    fn test_function_name() {
+    fn get_password__called__returns_expected_password() {
         let mut random_generator = random::SeededGenerator::new("test");
-        let character = random_generator.get_character("ABC");
-
-        assert_eq!('B', character);
+        let mut password_generator = StandardGenerator::new(random_generator);
     }
 }
