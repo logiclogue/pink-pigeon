@@ -7,7 +7,7 @@ mod standard_generator_tests {
 
     #[test]
     fn get_password__called__returns_expected_password() {
-        let mut random_generator = random::SeededGenerator::new("test");
+        let random_generator = random::SeededGenerator::new("test");
         let mut password_generator = StandardGenerator::new(random_generator);
     }
 }

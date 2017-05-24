@@ -11,10 +11,26 @@ mod seeded_generator_tests {
         let result;
 
         // act
-        result = generator.get();
+        result = generator.get("1");
 
         // assert
         assert_eq!(2447, result);
+    }
+
+    #[test]
+    fn get__called_with_different_seeds__returns_different_numbers() {
+        // arrange
+        let seed = "test";
+        let mut generator = SeededGenerator::new(seed);
+        let result_a;
+        let result_b;
+
+        // act
+        result_a = generator.get("1");
+        result_b = generator.get("2");
+
+        // assert
+        assert!(result_a != result_b);
     }
     
     #[test]
@@ -28,7 +44,7 @@ mod seeded_generator_tests {
         let expected_result = (2447 % 5) + 1;
 
         // act
-        result = generator.get_in_range(min, max);
+        result = generator.get_in_range(min, max, "1");
 
         // assert
         assert_eq!(expected_result, result);
@@ -44,7 +60,7 @@ mod seeded_generator_tests {
         let result;
 
         // act
-        result = generator.get_character(letters);
+        result = generator.get_character(letters, "");
 
         // assert
         assert_eq!(expected_result, result);

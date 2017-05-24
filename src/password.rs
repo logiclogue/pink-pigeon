@@ -5,11 +5,12 @@ pub trait Generator {
 }
 
 pub struct StandardGenerator {
-    generator: &'static mut random::Generator
+    generator: random::Generator
 }
 
 impl StandardGenerator {
-    pub fn new(generator: &'static mut random::Generator) -> StandardGenerator {
+    pub fn new(generator: random::Generator)
+            -> StandardGenerator {
         StandardGenerator {
             generator: generator
         }
@@ -21,7 +22,7 @@ impl Generator for StandardGenerator {
         let mut password = String::new();
 
         for index in 0..length {
-            let character = self.generator.get_character(characters);
+            let character = self.generator.get_character(characters, "");
 
             password.push(character);
         }

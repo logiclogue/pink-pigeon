@@ -2,9 +2,9 @@ use crypto::md5::Md5;
 use crypto::digest::Digest;
 
 pub trait Generator {
-    fn get(&mut self) -> i32;
-    fn get_in_range(&mut self, min: i32, max: i32) -> i32;
-    fn get_character(&mut self, letters: &str) -> char;
+    fn get(&mut self, seed: &str) -> i32;
+    fn get_in_range(&mut self, min: i32, max: i32, seed: &str) -> i32;
+    fn get_character(&mut self, letters: &str, seed: &str) -> char;
 }
 
 pub struct SeededGenerator {
@@ -22,7 +22,7 @@ impl SeededGenerator {
 }
 
 impl Generator for SeededGenerator {
-    fn get(&mut self) -> i32 {
+    fn get(&mut self, seed: &str) -> i32 {
         let digest;
         let s: String;
         let num;
@@ -44,22 +44,22 @@ impl Generator for SeededGenerator {
         }
     }
 
-    fn get_in_range(&mut self, min: i32, max: i32) -> i32 {
+    fn get_in_range(&mut self, min: i32, max: i32, seed: &str) -> i32 {
         let diff = max - min;
 
-        (self.get() % diff) + min
+        (self.get(seed) % diff) + min
     }
 
-    fn get_character(&mut self, letters: &str) -> char {
+    fn get_character(&mut self, letters: &str, seed: &str) -> char {
         let max = letters.len() as i32 - 1;
-        let index = self.get_in_range(0, max);
-        let character = get_char_from_index(letters, index);
+        let index = self.get_in_range(0, max, seed);
+        let character = get_char_from_index(letters, index, seed);
 
         character
     }
 }
 
-fn get_char_from_index(letters: &str, index: i32) -> char {
+fn get_char_from_index(letters: &str, index: i32, seed: &str) -> char {
     for (i, value) in letters.chars().enumerate() {
         if i == index as usize {
             return value;
